@@ -5,6 +5,6 @@ python:
   - "3.3"
   - "pypy"
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements/dev.txt
 script:
   - ./run_tests.sh
