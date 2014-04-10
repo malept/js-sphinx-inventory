@@ -1,0 +1,2 @@
+argparse
+git+https://github.com/malept/sphinx-inventory.git#egg=sphinx-inventory
