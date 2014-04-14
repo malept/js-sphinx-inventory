@@ -12,7 +12,12 @@ import json
 import logging
 from sphinx_inventory import Inventory
 import sys
-import urllib2
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from contextlib import closing
+    import urllib2
+    urlopen = lambda *a, **k: closing(urllib2.urlopen(*a, **k))
 from xml.etree import cElementTree
 
 MDN_SITEMAP = 'https://developer.mozilla.org/sitemaps/en-US/sitemap.xml'
@@ -56,11 +61,8 @@ def mdn_to_refs():
 
     :rtype: dict
     """
-    try:
-        f = urllib2.urlopen(MDN_SITEMAP)
+    with urlopen(MDN_SITEMAP) as f:
         xml = cElementTree.parse(f)
-    finally:
-        f.close()
     refs = defaultdict(dict)
     for loc in xml.iterfind('{{{ns}}}url/{{{ns}}}loc'.format(ns=SITEMAP_NS)):
         url = loc.text
@@ -76,11 +78,8 @@ def mdn_to_refs():
                 ref_type = 'js:data'
         elif len(parts) == 2:
             cls, attr = parts
-            try:
-                f = urllib2.urlopen('{url}$json'.format(url=url))
+            with urlopen('{url}$json'.format(url=url)) as f:
                 metadata = json.load(f)
-            finally:
-                f.close()
             name = '{0}.{1}'.format(cls, attr)
             if 'Method' in metadata['tags']:
                 ref_type = 'js:function'
