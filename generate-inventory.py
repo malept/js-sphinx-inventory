@@ -76,18 +76,18 @@ def mdn_to_refs():
         if len(parts) == 1:
             name = parts[0]
             if name[0].isupper():
-                ref_type = 'js:class'
+                ref_type = 'class'
             else:
-                ref_type = 'js:data'
+                ref_type = 'data'
         elif len(parts) == 2:
             cls, attr = parts
             with urlopen('{url}$json'.format(url=url)) as f:
                 metadata = json.load(f)
             name = '{0}.{1}'.format(cls, attr)
             if 'Method' in metadata['tags']:
-                ref_type = 'js:function'
+                ref_type = 'function'
             elif 'Property' in metadata['tags']:
-                ref_type = 'js:attribute'
+                ref_type = 'attribute'
             else:
                 fmt = 'Unknown ref_type for {0}. Tags: {1}'
                 log.warning(fmt.format(url, ', '.join(metadata['tags'])))
