@@ -23,6 +23,10 @@ try:
 except ImportError:
     from xml.etree import ElementTree
 
+if sys.version_info >= (3,):
+    from functools import partial
+    open = partial(open, encoding='utf-8')
+
 MDN_SITEMAP = 'https://developer.mozilla.org/sitemaps/en-US/sitemap.xml'
 SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
 
@@ -82,7 +86,7 @@ def mdn_to_refs():
         elif len(parts) == 2:
             cls, attr = parts
             with urlopen('{url}$json'.format(url=url)) as f:
-                metadata = json.load(f)
+                metadata = json.loads(f.read().decode('utf-8'))
             name = '{0}.{1}'.format(cls, attr)
             if 'Method' in metadata['tags']:
                 ref_type = 'function'
