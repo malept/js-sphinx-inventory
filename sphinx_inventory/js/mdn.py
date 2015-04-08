@@ -3,16 +3,7 @@
 from collections import defaultdict
 import json
 import logging
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from contextlib import closing
-    import urllib2
-    urlopen = lambda *a, **k: closing(urllib2.urlopen(*a, **k))
-try:
-    from xml.etree import cElementTree as ElementTree
-except ImportError:
-    from xml.etree import ElementTree
+from .compat import ElementTree, urlopen
 
 MDN_SITEMAP = 'https://developer.mozilla.org/sitemaps/en-US/sitemap.xml'
 SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
