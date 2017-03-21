@@ -12,10 +12,8 @@ Uses the `Sphinx Inventory Writer`_ to generate a Sphinx inventory file for the
 Requirements
 ------------
 
-* CPython 2.6/2.7/3.3/3.4 or PyPy
+* CPython 2.7/3.3+ or PyPy
 
-  * If you're using CPython 2.6, install ``argparse`` (via ``pip install
-    argparse``)
 * The ``sphinx_inventory`` module (`Installation instructions`_)
 
 .. _Installation instructions: https://github.com/malept/sphinx-inventory#installation
