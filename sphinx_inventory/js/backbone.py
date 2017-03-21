@@ -10,12 +10,16 @@ HTML_NS = html5lib.constants.namespaces['html']
 def tag(name):
     return '{{{ns}}}{name}'.format(ns=HTML_NS, name=name)
 
+
+def sig_xpath(href):
+    return './/{p}[@id="{href}"]/{code}'.format(p=tag('p'),
+                                                code=tag('code'),
+                                                href=href)
+
+
 TAG_DIV = tag('div')
 TAG_A = tag('a')
 LINK_XPATH = './{li}/{a}'.format(li=tag('li'), a=TAG_A)
-sig_xpath = lambda href: './/{p}[@id="{href}"]/{code}'.format(p=tag('p'),
-                                                              code=tag('code'),
-                                                              href=href)
 
 
 def element_matches(element, tag, cls):
