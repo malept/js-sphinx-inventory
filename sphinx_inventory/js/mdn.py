@@ -3,7 +3,7 @@
 from collections import defaultdict
 import json
 import logging
-from .compat import ElementTree, urlopen
+from ._compat import ElementTree, urlopen
 
 MDN_SITEMAP = 'https://developer.mozilla.org/sitemaps/en-US/sitemap.xml'
 SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
